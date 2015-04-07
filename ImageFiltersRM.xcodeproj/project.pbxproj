@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D08CA4ED1AD3205A0026302B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA4EC1AD3205A0026302B /* AppDelegate.swift */; };
-		D08CA4EF1AD3205A0026302B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA4EE1AD3205A0026302B /* ViewController.swift */; };
 		D08CA4F21AD3205A0026302B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08CA4F01AD3205A0026302B /* Main.storyboard */; };
 		D08CA4F41AD3205A0026302B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08CA4F31AD3205A0026302B /* Images.xcassets */; };
 		D08CA4F71AD3205A0026302B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08CA4F51AD3205A0026302B /* LaunchScreen.xib */; };
 		D08CA5031AD3205A0026302B /* ImageFiltersRMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA5021AD3205A0026302B /* ImageFiltersRMTests.swift */; };
+		D08CA50F1AD320E30026302B /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA50E1AD320E30026302B /* PhotoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +29,13 @@
 		D08CA4E71AD320590026302B /* ImageFiltersRM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFiltersRM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08CA4EB1AD320590026302B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08CA4EC1AD3205A0026302B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D08CA4EE1AD3205A0026302B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D08CA4F11AD3205A0026302B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D08CA4F31AD3205A0026302B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D08CA4F61AD3205A0026302B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		D08CA4FC1AD3205A0026302B /* ImageFiltersRMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFiltersRMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08CA5011AD3205A0026302B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08CA5021AD3205A0026302B /* ImageFiltersRMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFiltersRMTests.swift; sourceTree = "<group>"; };
+		D08CA50E1AD320E30026302B /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoViewController.swift; path = ../PhotoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +77,10 @@
 		D08CA4E91AD320590026302B /* ImageFiltersRM */ = {
 			isa = PBXGroup;
 			children = (
+				D08CA5121AD321370026302B /* Controller */,
+				D08CA5111AD321320026302B /* View */,
+				D08CA5101AD3212B0026302B /* Model */,
 				D08CA4EC1AD3205A0026302B /* AppDelegate.swift */,
-				D08CA4EE1AD3205A0026302B /* ViewController.swift */,
 				D08CA4F01AD3205A0026302B /* Main.storyboard */,
 				D08CA4F31AD3205A0026302B /* Images.xcassets */,
 				D08CA4F51AD3205A0026302B /* LaunchScreen.xib */,
@@ -110,6 +112,28 @@
 				D08CA5011AD3205A0026302B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D08CA5101AD3212B0026302B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D08CA5111AD321320026302B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D08CA5121AD321370026302B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D08CA50E1AD320E30026302B /* PhotoViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,8 +236,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D08CA4EF1AD3205A0026302B /* ViewController.swift in Sources */,
 				D08CA4ED1AD3205A0026302B /* AppDelegate.swift in Sources */,
+				D08CA50F1AD320E30026302B /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
