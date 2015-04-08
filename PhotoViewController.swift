@@ -49,6 +49,22 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
       self.myImageView.image = sepiaImage
     }
     self.myAlertController.addAction(sepiaAction)
+    
+    
+    let vignetteAction = UIAlertAction(title: "Vignette", style: UIAlertActionStyle.Destructive) { (action) -> Void in
+      
+      let vignetteImage = FilterService.vignette(self.myImageView.image!)
+      self.myImageView.image = vignetteImage
+    }
+    self.myAlertController.addAction(vignetteAction)
+    
+    
+    let gaussianBlurAction = UIAlertAction(title: "Gaussian Blur", style: UIAlertActionStyle.Destructive) { (action) -> Void in
+      
+      let gaussianBlur = FilterService.gaussianBlur(self.myImageView.image!)
+      self.myImageView.image = gaussianBlur
+    }
+    self.myAlertController.addAction(gaussianBlurAction)
 
 } // viewDidLoad
 

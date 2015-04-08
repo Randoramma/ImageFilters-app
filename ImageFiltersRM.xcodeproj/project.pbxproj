@@ -14,6 +14,7 @@
 		D08CA4F71AD3205A0026302B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08CA4F51AD3205A0026302B /* LaunchScreen.xib */; };
 		D08CA5031AD3205A0026302B /* ImageFiltersRMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA5021AD3205A0026302B /* ImageFiltersRMTests.swift */; };
 		D08CA50F1AD320E30026302B /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA50E1AD320E30026302B /* PhotoViewController.swift */; };
+		D09AFD171AD5868300F81896 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09AFD161AD5868300F81896 /* Constants.swift */; };
 		D0C2ADA11AD45862008CDF38 /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2ADA01AD45862008CDF38 /* FilterService.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		D08CA5011AD3205A0026302B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08CA5021AD3205A0026302B /* ImageFiltersRMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFiltersRMTests.swift; sourceTree = "<group>"; };
 		D08CA50E1AD320E30026302B /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoViewController.swift; path = ../PhotoViewController.swift; sourceTree = "<group>"; };
+		D09AFD161AD5868300F81896 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../Constants.swift; sourceTree = "<group>"; };
 		D0C2ADA01AD45862008CDF38 /* FilterService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterService.swift; path = ../FilterService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 		D08CA4EA1AD320590026302B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D09AFD161AD5868300F81896 /* Constants.swift */,
 				D08CA4EB1AD320590026302B /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -246,6 +249,7 @@
 				D0C2ADA11AD45862008CDF38 /* FilterService.swift in Sources */,
 				D08CA4ED1AD3205A0026302B /* AppDelegate.swift in Sources */,
 				D08CA50F1AD320E30026302B /* PhotoViewController.swift in Sources */,
+				D09AFD171AD5868300F81896 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

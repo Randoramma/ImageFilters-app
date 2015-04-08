@@ -11,24 +11,72 @@ import CoreImage
 
 class FilterService {
   
-  class func sepia(originalImage : UIImage) -> UIImage {
+  class func sepia(myOriginalImage : UIImage) -> UIImage {
     
-    let image = CIImage(image: originalImage)
+    let theImage = CIImage(image: myOriginalImage)
     let sepia = CIFilter(name: "CISepiaTone")
     sepia.setDefaults()
     
-    sepia.setValue(image, forKey: kCIInputImageKey)
-    let result = sepia.valueForKey(kCIOutputImageKey) as CIImage
+    sepia.setValue(theImage, forKey: kCIInputImageKey)
+    let theResult = sepia.valueForKey(kCIOutputImageKey) as CIImage
+//    
+//    for theInput in sepia.inputKeys() {
+//      println(theInput)
+//    }
     
-    for input in sepia.inputKeys() {
-      println(input)
-    }
-    
-    let options = [kCIContextWorkingColorSpace : NSNull()]
+    let theOptions = [kCIContextWorkingColorSpace : NSNull()]
     let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-    let context = CIContext(EAGLContext: eaglContext, options: options)
+    let theContext = CIContext(EAGLContext: eaglContext, options: theOptions)
     
-    let resultRef = context.createCGImage(result, fromRect: result.extent())
+    let resultRef = theContext.createCGImage(theResult, fromRect: theResult.extent())
     return UIImage(CGImage: resultRef)!
-  }
+  } // sepia
+  
+  class func vignette(myOrigionalImage : UIImage) -> UIImage {
+    
+    let theImage = CIImage (image : myOrigionalImage)
+    let theVignette = CIFilter(name: "CIVignette")
+    theVignette.setDefaults()
+    
+    theVignette.setValue(theImage, forKey: kCIInputImageKey)
+    theVignette.setValue(NSNumber (float: 1.0), forKey: "inputIntensity")
+    let theResult = theVignette.valueForKey(kCIOutputImageKey) as CIImage
+    
+//    for theInput in theVignette.inputKeys() {
+//      println(theInput)
+//    }
+    
+    let theOptions = [kCIContextWorkingColorSpace : NSNull()]
+    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+    let theContext = CIContext(EAGLContext: eaglContext, options: theOptions)
+    
+    let resultRef = theContext.createCGImage(theResult, fromRect: theResult.extent())
+    return UIImage(CGImage: resultRef)!
+    
+    
+  } // vignette 
+  
+  class func gaussianBlur(myOrigionalImage : UIImage) -> UIImage {
+    
+    let theImage = CIImage (image : myOrigionalImage)
+    let theGaussianBlur = CIFilter(name: "CIGaussianBlur")
+    theGaussianBlur.setDefaults()
+    
+    theGaussianBlur.setValue(theImage, forKey: kCIInputImageKey)
+    let theResult = theGaussianBlur.valueForKey(kCIOutputImageKey) as CIImage
+    
+//    for theInput in theGaussianBlur.inputKeys() {
+//      println(theInput)
+//    }
+    
+    let theOptions = [kCIContextWorkingColorSpace : NSNull()]
+    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+    let theContext = CIContext(EAGLContext: eaglContext, options: theOptions)
+    
+    let resultRef = theContext.createCGImage(theResult, fromRect: theResult.extent())
+    return UIImage(CGImage: resultRef)!
+    
+    
+  } // gaussianBlur
+  
 }
