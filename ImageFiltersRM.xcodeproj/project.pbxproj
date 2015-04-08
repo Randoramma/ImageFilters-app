@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01C27E61AD4768300626392 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D01C27E51AD4768300626392 /* libsqlite3.dylib */; };
 		D08CA4ED1AD3205A0026302B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA4EC1AD3205A0026302B /* AppDelegate.swift */; };
 		D08CA4F21AD3205A0026302B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08CA4F01AD3205A0026302B /* Main.storyboard */; };
 		D08CA4F41AD3205A0026302B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08CA4F31AD3205A0026302B /* Images.xcassets */; };
 		D08CA4F71AD3205A0026302B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08CA4F51AD3205A0026302B /* LaunchScreen.xib */; };
 		D08CA5031AD3205A0026302B /* ImageFiltersRMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA5021AD3205A0026302B /* ImageFiltersRMTests.swift */; };
 		D08CA50F1AD320E30026302B /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08CA50E1AD320E30026302B /* PhotoViewController.swift */; };
+		D0C2ADA11AD45862008CDF38 /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2ADA01AD45862008CDF38 /* FilterService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D01C27E51AD4768300626392 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D08CA4E71AD320590026302B /* ImageFiltersRM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFiltersRM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08CA4EB1AD320590026302B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08CA4EC1AD3205A0026302B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 		D08CA5011AD3205A0026302B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08CA5021AD3205A0026302B /* ImageFiltersRMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFiltersRMTests.swift; sourceTree = "<group>"; };
 		D08CA50E1AD320E30026302B /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoViewController.swift; path = ../PhotoViewController.swift; sourceTree = "<group>"; };
+		D0C2ADA01AD45862008CDF38 /* FilterService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterService.swift; path = ../FilterService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D01C27E61AD4768300626392 /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +64,7 @@
 		D08CA4DE1AD320590026302B = {
 			isa = PBXGroup;
 			children = (
+				D01C27E51AD4768300626392 /* libsqlite3.dylib */,
 				D08CA4E91AD320590026302B /* ImageFiltersRM */,
 				D08CA4FF1AD3205A0026302B /* ImageFiltersRMTests */,
 				D08CA4E81AD320590026302B /* Products */,
@@ -117,6 +123,7 @@
 		D08CA5101AD3212B0026302B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D0C2ADA01AD45862008CDF38 /* FilterService.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -236,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0C2ADA11AD45862008CDF38 /* FilterService.swift in Sources */,
 				D08CA4ED1AD3205A0026302B /* AppDelegate.swift in Sources */,
 				D08CA50F1AD320E30026302B /* PhotoViewController.swift in Sources */,
 			);
@@ -431,6 +439,7 @@
 				D08CA5081AD3205A0026302B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D08CA5091AD3205A0026302B /* Build configuration list for PBXNativeTarget "ImageFiltersRMTests" */ = {
 			isa = XCConfigurationList;
@@ -439,6 +448,7 @@
 				D08CA50B1AD3205A0026302B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Photo View Controller-->
@@ -12,41 +13,43 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleAspectFit" restorationIdentifier="myImageView" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2qd-6J-ZLx">
-                                <rect key="frame" x="277" y="562" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="280" y="562" width="41" height="30"/>
+                                <state key="normal" title="Photo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="photoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jYI-lb-FdJ"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaP-2I-EAd">
-                                <rect key="frame" x="277" y="562" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uBQ-mY-1DP">
-                                <rect key="frame" x="352" y="562" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="bCY-u8-1W1">
+                                <rect key="frame" x="60" y="60" width="480" height="480"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="2qd-6J-ZLx" secondAttribute="centerX" id="Hpk-Ey-wo7"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uBQ-mY-1DP" secondAttribute="bottom" constant="8" id="MPG-YS-bed"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2qd-6J-ZLx" secondAttribute="bottom" constant="8" id="QK6-Lm-zyW"/>
-                            <constraint firstItem="uBQ-mY-1DP" firstAttribute="leading" secondItem="vaP-2I-EAd" secondAttribute="trailing" constant="30" id="bnf-R4-ga1"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2qd-6J-ZLx" secondAttribute="bottom" constant="8" id="P3i-XM-17Q"/>
+                            <constraint firstAttribute="centerX" secondItem="bCY-u8-1W1" secondAttribute="centerX" id="afZ-Yp-0hb"/>
+                            <constraint firstItem="bCY-u8-1W1" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="f9I-8k-0i5"/>
+                            <constraint firstItem="bCY-u8-1W1" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" id="k4e-SO-zez"/>
+                            <constraint firstAttribute="centerY" secondItem="bCY-u8-1W1" secondAttribute="centerY" id="p0L-uZ-Ar2"/>
+                            <constraint firstAttribute="centerX" secondItem="2qd-6J-ZLx" secondAttribute="centerX" id="ugH-AA-cyn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="myImageView" destination="bCY-u8-1W1" id="2qu-ca-p3L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="629" y="-131"/>
+            <point key="canvasLocation" x="689" y="-233"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="photo" width="1182" height="887"/>
+    </resources>
 </document>
