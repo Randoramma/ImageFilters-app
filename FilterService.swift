@@ -19,10 +19,10 @@ class FilterService {
     
     sepia.setValue(theImage, forKey: kCIInputImageKey)
     let theResult = sepia.valueForKey(kCIOutputImageKey) as CIImage
-//    
-//    for theInput in sepia.inputKeys() {
-//      println(theInput)
-//    }
+    
+    //    for theInput in sepia.inputKeys() {
+    //      println(theInput)
+    //    }
     
     let theOptions = [kCIContextWorkingColorSpace : NSNull()]
     let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
@@ -42,9 +42,9 @@ class FilterService {
     theVignette.setValue(NSNumber (float: 1.0), forKey: "inputIntensity")
     let theResult = theVignette.valueForKey(kCIOutputImageKey) as CIImage
     
-//    for theInput in theVignette.inputKeys() {
-//      println(theInput)
-//    }
+    //    for theInput in theVignette.inputKeys() {
+    //      println(theInput)
+    //    }
     
     let theOptions = [kCIContextWorkingColorSpace : NSNull()]
     let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
@@ -52,9 +52,7 @@ class FilterService {
     
     let resultRef = theContext.createCGImage(theResult, fromRect: theResult.extent())
     return UIImage(CGImage: resultRef)!
-    
-    
-  } // vignette 
+  } // vignette
   
   class func gaussianBlur(myOrigionalImage : UIImage) -> UIImage {
     
@@ -65,9 +63,9 @@ class FilterService {
     theGaussianBlur.setValue(theImage, forKey: kCIInputImageKey)
     let theResult = theGaussianBlur.valueForKey(kCIOutputImageKey) as CIImage
     
-//    for theInput in theGaussianBlur.inputKeys() {
-//      println(theInput)
-//    }
+    //    for theInput in theGaussianBlur.inputKeys() {
+    //      println(theInput)
+    //    }
     
     let theOptions = [kCIContextWorkingColorSpace : NSNull()]
     let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
@@ -75,8 +73,6 @@ class FilterService {
     
     let resultRef = theContext.createCGImage(theResult, fromRect: theResult.extent())
     return UIImage(CGImage: resultRef)!
-    
-    
   } // gaussianBlur
   
 }
