@@ -11,68 +11,59 @@ import CoreImage
 
 class FilterService {
   
-  class func sepia(myOriginalImage : UIImage) -> UIImage {
-    
-    let theImage = CIImage(image: myOriginalImage)
-    let sepia = CIFilter(name: "CISepiaTone")
-    sepia.setDefaults()
-    
-    sepia.setValue(theImage, forKey: kCIInputImageKey)
-    let theResult = sepia.valueForKey(kCIOutputImageKey) as CIImage
-    
-    //    for theInput in sepia.inputKeys() {
-    //      println(theInput)
-    //    }
-    
-    let theOptions = [kCIContextWorkingColorSpace : NSNull()]
-    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-    let theContext = CIContext(EAGLContext: eaglContext, options: theOptions)
-    
-    let resultRef = theContext.createCGImage(theResult, fromRect: theResult.extent())
-    return UIImage(CGImage: resultRef)!
+  class func sepia(myOriginalImage : UIImage, context : CIContext) -> UIImage {
+
+    let theSepia = CIFilter(name: "CISepiaTone")
+    theSepia.setDefaults()
+
+    return self.filteredImageFromOriginalImage(myOriginalImage, filter: theSepia, context: context)
   } // sepia
   
-  class func vignette(myOrigionalImage : UIImage) -> UIImage {
-    
-    let theImage = CIImage (image : myOrigionalImage)
+  class func vignette(myOriginalImage : UIImage, context : CIContext) -> UIImage {
+
     let theVignette = CIFilter(name: "CIVignette")
     theVignette.setDefaults()
-    
-    theVignette.setValue(theImage, forKey: kCIInputImageKey)
     theVignette.setValue(NSNumber (float: 1.0), forKey: "inputIntensity")
-    let theResult = theVignette.valueForKey(kCIOutputImageKey) as CIImage
     
-    //    for theInput in theVignette.inputKeys() {
-    //      println(theInput)
-    //    }
-    
-    let theOptions = [kCIContextWorkingColorSpace : NSNull()]
-    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-    let theContext = CIContext(EAGLContext: eaglContext, options: theOptions)
-    
-    let resultRef = theContext.createCGImage(theResult, fromRect: theResult.extent())
-    return UIImage(CGImage: resultRef)!
+    return self.filteredImageFromOriginalImage(myOriginalImage, filter: theVignette, context: context)
   } // vignette
   
-  class func gaussianBlur(myOrigionalImage : UIImage) -> UIImage {
+  class func gaussianBlur(myOriginalImage : UIImage, context : CIContext) -> UIImage {
     
-    let theImage = CIImage (image : myOrigionalImage)
     let theGaussianBlur = CIFilter(name: "CIGaussianBlur")
     theGaussianBlur.setDefaults()
     
-    theGaussianBlur.setValue(theImage, forKey: kCIInputImageKey)
-    let theResult = theGaussianBlur.valueForKey(kCIOutputImageKey) as CIImage
+    return self.filteredImageFromOriginalImage(myOriginalImage, filter: theGaussianBlur, context: context)
     
-    //    for theInput in theGaussianBlur.inputKeys() {
-    //      println(theInput)
-    //    }
-    
-    let theOptions = [kCIContextWorkingColorSpace : NSNull()]
-    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-    let theContext = CIContext(EAGLContext: eaglContext, options: theOptions)
-    
-    let resultRef = theContext.createCGImage(theResult, fromRect: theResult.extent())
-    return UIImage(CGImage: resultRef)!
   } // gaussianBlur
+  
+  
+  class func instant(myOriginalImage : UIImage, context : CIContext) -> UIImage {
+    
+    
+    let theInstant = CIFilter(name: "CIPhotoEffectInstant")
+    theInstant.setDefaults()
+    
+    return self.filteredImageFromOriginalImage(myOriginalImage, filter: theInstant, context: context)
+    
+  } // instant 
+  
+  class func noir(myOriginalImage : UIImage, context : CIContext) -> UIImage {
+    
+    let theNoir = CIFilter(name: "CIPhotoEffectNoir")
+    theNoir.setDefaults()
+    return self.filteredImageFromOriginalImage(myOriginalImage, filter: theNoir, context: context)
+  } // theNoir
+  
+  private class func filteredImageFromOriginalImage (myOriginalImage : UIImage, filter : CIFilter, context : CIContext) -> UIImage {
+    
+    let theImage = CIImage (image: myOriginalImage)
+    filter.setValue(theImage, forKey: kCIInputImageKey)
+    let theResult = filter.valueForKey(kCIOutputImageKey) as CIImage
+    let theResultReference = context.createCGImage(theResult, fromRect: theResult.extent())
+    return UIImage (CGImage: theResultReference)!
+    
+  } // filteredImageFromOriginalImage
+  
   
 }

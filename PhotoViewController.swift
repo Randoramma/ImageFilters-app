@@ -9,91 +9,166 @@
 import UIKit
 import Parse
 
-class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource {
   
-  // properties
+  //MARK:
+  //MARK: Properties
+  
+
   let myAlertController = UIAlertController (title: "Options", message: "Choose One", preferredStyle: UIAlertControllerStyle.ActionSheet)
+  let theImageLength : CGFloat = 500.0
+  let myImageConstraint : CGFloat = 50.0
+  let myAnimationDuration = 0.3
+  let myImageUploadSize = CGSize(width: 400.0, height: 400.0)
+  // let myCollectionViewHeight : CGFloat = 75.0
+  let myCollectionViewBottomFilterModeConstant : CGFloat = 8.0
   
+  var myFilters : [(UIImage, CIContext)->(UIImage)]!
+  var myContext : CIContext!
+  var myOriginalThumbnail : UIImage!
+  
+  var currentImage : UIImage! {
+    didSet {
+      self.myImageView.image = self.currentImage
+      self.myOriginalThumbnail = ImageResizer.ImageResizer(self.currentImage, theSize: self.myThumbnailSize)
+      self.myCollectionView.reloadData()
+      //self.currentImage = oldValue
+    }
+  }
+  
+  
+  // imageview constants
+  var originalImageViewTopLeadingTrailingConstant : CGFloat = 0.0
+  var originalImageViewBottomConstant : CGFloat = 0.0
+  let myThumbnailSize = CGSize(width: 75, height: 75)
+  
+  //MARK:
+  //MARK: Interface Outlets
   @IBOutlet weak var myImageView: UIImageView!
+  @IBOutlet weak var myPhotoButton: UIButton!
+  @IBOutlet weak var myCollectionView: UICollectionView!
   
-  //functions
+  
+  //MARK:
+  //MARK: ImageView Constraints
+  
+  @IBOutlet weak var myImageViewLeadingConstraint: NSLayoutConstraint!
+  @IBOutlet weak var myImageViewTrailingConstraint: NSLayoutConstraint!
+  @IBOutlet weak var myImageViewTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var myImageViewBottomConstraint: NSLayoutConstraint!
+  
+  //MARK: CollectionView Constraints
+  
+  @IBOutlet weak var myCollectionViewBottomConstraint: NSLayoutConstraint!
+  
+  //MARK:
+  //MARK: Functions
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.title = "Editor"
+    // this stuff
+    let options = [kCIContextWorkingColorSpace : NSNull()]
+    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+    self.myContext = CIContext(EAGLContext: eaglContext, options: options)
+    
+    self.myCollectionView.dataSource = self
+    
+    // setting up collection bar beneath the view
+    self.myCollectionViewBottomConstraint.constant = -self.tabBarController!.tabBar.frame.height - self.myCollectionView.frame.height
     
     if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
       
       let cameraAction = UIAlertAction (title: "Camera", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
         
-        let imagePickerController = UIImagePickerController()
+        let imagePickerController = UIImagePickerController ()
         imagePickerController.sourceType = UIImagePickerControllerSourceType.Camera
         imagePickerController.allowsEditing = true
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
+        self.presentViewController (imagePickerController, animated: true, completion: nil)
         imagePickerController.delegate = self
       })
       self.myAlertController.addAction (cameraAction)
     } else {
       let cameraAction = UIAlertAction (title: "PhotoLibrary", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
         
-        let imagePickerController = UIImagePickerController()
+        let imagePickerController = UIImagePickerController ()
         imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         imagePickerController.allowsEditing = true
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
+        self.presentViewController (imagePickerController, animated: true, completion: nil)
         imagePickerController.delegate = self
       })
       self.myAlertController.addAction (cameraAction)
       
     } // if else
     
-    let sepiaAction = UIAlertAction (title: "Sepia", style: UIAlertActionStyle.Destructive) { (action) -> Void in
+    let filtersAction = UIAlertAction (title: "Filters", style: UIAlertActionStyle.Default) { [weak self] (action) -> Void in
       
-      let sepiaImage = FilterService.sepia(self.myImageView.image!)
-      self.myImageView.image = sepiaImage
-    } // sepiaAction
-    self.myAlertController.addAction (sepiaAction)
+      if self != nil {
+        self!.enterFilterMode ()
+      }
+    } //filters Action
+    self.myAlertController.addAction (filtersAction)
     
+    self.myFilters = [FilterService.sepia,FilterService.gaussianBlur, FilterService.instant, FilterService.vignette, FilterService.noir]
     
-    let vignetteAction = UIAlertAction (title: "Vignette", style: UIAlertActionStyle.Destructive) { (action) -> Void in
+    let saveAction = UIAlertAction (title: "Save photo to Cloud", style: UIAlertActionStyle.Default) { (action) -> Void in
       
-      let vignetteImage = FilterService.vignette(self.myImageView.image!)
-      self.myImageView.image = vignetteImage
-    } // vignetteAction
-    self.myAlertController.addAction (vignetteAction)
-    
-    
-    let gaussianBlurAction = UIAlertAction (title: "Gaussian Blur", style: UIAlertActionStyle.Destructive) { (action) -> Void in
-      
-      let gaussianBlur = FilterService.gaussianBlur(self.myImageView.image!)
-      self.myImageView.image = gaussianBlur
-    }  // gaussianBlurAction
-    self.myAlertController.addAction (gaussianBlurAction)
-    
-//    let testObject = PFObject(className: "TestObject")
-//    testObject["foo"] = "bar"
-//    testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError!) -> Void in
-//      println("Object has been saved.")
-//    }
-    
-    let saveAction = UIAlertAction (title: "Save photo to Cloud", style: UIAlertActionStyle.Default) { (acton) -> Void in
-      
-      let thePhoto : UIImage = self.myImageView.image!
-      let theImageData = UIImageJPEGRepresentation(thePhoto, 1.0)
-      let theFile = PFFile (name: "theImage", data: theImageData)
-      
-      let theImagePost = PFObject(className: "ImagePost")
-      theImagePost["image"] = theFile
-      theImagePost["theTitle"] = "this photo also Rocks!"
-      
-      theImagePost.saveInBackgroundWithBlock({ (succeded, error) -> Void in
-       
-        println("save completed!")
+      let thePhoto: Void = ParseService.ParseService(self.myImageView.image!, theSize: self.myImageUploadSize, completionHandler : {(errorDescription) -> Void in
+        
       })
     } // save action
     self.myAlertController.addAction (saveAction)
     
+    let cancelAction = UIAlertAction (title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+      
+    } // calcel action
+    
+    self.myAlertController.addAction (cancelAction)
+    
   } // viewDidLoad
   
+  func enterFilterMode () {
+    
+    self.myPhotoButton.enabled = false
+    // show the thumbnail bar.
+    self.myCollectionViewBottomConstraint.constant = myCollectionViewBottomFilterModeConstant
+    
+    // when you enter the filter mode, there will be a bar button that will appear on the top right of the menu.
+    
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem (title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "leaveFilterMode:")
+    
+    self.myImageViewTopConstraint.constant += myImageConstraint
+    self.myImageViewBottomConstraint.constant += myImageConstraint
+    self.myImageViewLeadingConstraint.constant += myImageConstraint
+    self.myImageViewTrailingConstraint.constant += myImageConstraint
+    
+    UIView.animateWithDuration(self.myAnimationDuration, animations: { () -> Void in
+      self.myImageView.layoutIfNeeded()
+    })
+    
+  } // enterFilterMode
+  
+  func leaveFilterMode () {
+    
+    self.myPhotoButton.enabled = true
+    // hide the thumbnail bar.
+    self.myCollectionViewBottomConstraint.constant = -self.tabBarController!.tabBar.frame.height - self.myCollectionView.frame.height
+    
+    // remove the done button
+    self.navigationItem.rightBarButtonItem = nil
+    // allow the imageview to retirn to fill size.
+    
+    self.originalImageViewTopLeadingTrailingConstant = self.myImageViewTopConstraint.constant
+    self.originalImageViewBottomConstant = self.myImageViewBottomConstraint.constant
+    
+    UIView.animateWithDuration (self.myAnimationDuration, animations: { () -> Void in
+      self.myImageView.layoutIfNeeded ()
+    })
+    
+  }// leaveFilterMode
+  
   // Photo button pressed function calling the UIAlertController.
-  @IBAction func photoButtonPressed(sender: AnyObject) {
+  @IBAction func photoButtonPressed (sender: AnyObject) {
     
     // check if device is an iPad to set the setSceneView and setSourceRect
     if let popoverController = self.myAlertController.popoverPresentationController {
@@ -111,28 +186,45 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
       }
     } // if let popoverController
     
-    self.presentViewController(myAlertController, animated: true) { () -> Void in
+    self.presentViewController (myAlertController, animated: true) { () -> Void in
       
     }
   } // photoButtonPressed
   
   //MARK:
+  //MARK: UICollectionViewDataSource
+  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return self.myFilters.count
+  }
+  
+  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myImageCell", forIndexPath: indexPath) as UICollectionViewCell
+    
+    let filter = self.myFilters[indexPath.row]
+    theCell.backgroundColor = UIColor.redColor()
+    //.imageView.image = filter(self.originalThumbnail,self.context)
+    
+    return theCell
+  }
+  
+  
+  //MARK:
   //MARK: UIImagePickerControllerDelegate
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+  func imagePickerController (picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     if let myEditedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
       myImageView.image = myEditedImage
     }
     picker.dismissViewControllerAnimated(true, completion: nil)
   } // imagePickerController didFinishPickingMediaWithInfo
   
-  func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+  func imagePickerController (picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
     
   } // imagePickerController didFinishPickingImage
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
+  override func didReceiveMemoryWarning () {
+    super.didReceiveMemoryWarning ()
     // Dispose of any resources that can be recreated.
   } // didReceiveMemoryWarning
-
+  
 }
