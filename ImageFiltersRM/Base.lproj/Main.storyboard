@@ -35,8 +35,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="j5f-3Y-4jW" kind="relationship" relationship="viewControllers" id="twb-lr-b8R"/>
                         <segue destination="zhT-ep-6Jc" kind="relationship" relationship="viewControllers" id="NhT-JX-uRy"/>
+                        <segue destination="j5f-3Y-4jW" kind="relationship" relationship="viewControllers" id="wrI-Tl-MzP"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F2L-cV-PWl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -72,7 +72,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="2AW-Rt-7GJ"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JTo-a8-SQ6">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JTo-a8-SQ6">
                                     <size key="itemSize" width="75" height="75"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -99,7 +99,7 @@
                                             <constraint firstItem="LGQ-r9-2Sh" firstAttribute="top" secondItem="k55-LE-sYg" secondAttribute="topMargin" constant="-8" id="kiY-EP-Gjg"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="myImageCell" destination="LGQ-r9-2Sh" id="RJw-JM-Fa4"/>
+                                            <outlet property="myCellImageView" destination="LGQ-r9-2Sh" id="bzs-dA-qTW"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

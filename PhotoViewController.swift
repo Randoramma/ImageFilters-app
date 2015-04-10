@@ -25,8 +25,9 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   
   var myFilters : [(UIImage, CIContext)->(UIImage)]!
   var myContext : CIContext!
-  var myOriginalThumbnail : UIImage!
   
+  var myOriginalThumbnail : UIImage!
+  // property observer
   var currentImage : UIImage! {
     didSet {
       self.myImageView.image = self.currentImage
@@ -125,6 +126,8 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     self.myAlertController.addAction (cancelAction)
     
+    self.currentImage = UIImage(named: "photo.jpg")
+    
   } // viewDidLoad
   
   func enterFilterMode () {
@@ -135,7 +138,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     // when you enter the filter mode, there will be a bar button that will appear on the top right of the menu.
     
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem (title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "leaveFilterMode:")
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem (title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "leaveFilterMode")
     
     self.myImageViewTopConstraint.constant += myImageConstraint
     self.myImageViewBottomConstraint.constant += myImageConstraint
@@ -157,9 +160,12 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // remove the done button
     self.navigationItem.rightBarButtonItem = nil
     // allow the imageview to retirn to fill size.
-    
-    self.originalImageViewTopLeadingTrailingConstant = self.myImageViewTopConstraint.constant
-    self.originalImageViewBottomConstant = self.myImageViewBottomConstraint.constant
+   
+    self.myImageViewTopConstraint.constant = self.originalImageViewTopLeadingTrailingConstant
+    self.myImageViewBottomConstraint.constant = self.originalImageViewBottomConstant
+    self.myImageViewTrailingConstraint.constant = self.originalImageViewTopLeadingTrailingConstant
+    self.myImageViewLeadingConstraint.constant = self.originalImageViewTopLeadingTrailingConstant
+    self.myCollectionViewBottomConstraint.constant = -self.tabBarController!.tabBar.frame.height - self.myCollectionView.frame.height
     
     UIView.animateWithDuration (self.myAnimationDuration, animations: { () -> Void in
       self.myImageView.layoutIfNeeded ()
@@ -198,11 +204,14 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   }
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myImageCell", forIndexPath: indexPath) as UICollectionViewCell
+    let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myImageCell", forIndexPath: indexPath) as ImageCell
     
-    let filter = self.myFilters[indexPath.row]
+    let theFilter = self.myFilters[indexPath.row]
+    
     theCell.backgroundColor = UIColor.redColor()
-    //.imageView.image = filter(self.originalThumbnail,self.context)
+    
+    theCell.myCellImageView.image = theFilter(self.myOriginalThumbnail, self.myContext)
+    
     
     return theCell
   }
@@ -213,7 +222,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   
   func imagePickerController (picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     if let myEditedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-      myImageView.image = myEditedImage
+      self.currentImage = myEditedImage
     }
     picker.dismissViewControllerAnimated(true, completion: nil)
   } // imagePickerController didFinishPickingMediaWithInfo
