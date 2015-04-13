@@ -36,6 +36,8 @@
 		D09AFD3F1AD5AC0100F81896 /* ParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09AFD3E1AD5AC0100F81896 /* ParseService.swift */; };
 		D0A73F681AD6EDA200572A4F /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A73F671AD6EDA200572A4F /* TimelineViewController.swift */; };
 		D0C2ADA11AD45862008CDF38 /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2ADA01AD45862008CDF38 /* FilterService.swift */; };
+		D0D433A21AD8777800EB0610 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D433A11AD8777800EB0610 /* GalleryViewController.swift */; };
+		D0D433A41AD87C8100EB0610 /* GalleryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D433A31AD87C8100EB0610 /* GalleryViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +82,10 @@
 		D09AFD371AD599F900F81896 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D09AFD3C1AD5A91700F81896 /* ImageResizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageResizer.swift; path = ../ImageResizer.swift; sourceTree = "<group>"; };
 		D09AFD3E1AD5AC0100F81896 /* ParseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseService.swift; sourceTree = "<group>"; };
-		D0A73F671AD6EDA200572A4F /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
+		D0A73F671AD6EDA200572A4F /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimelineViewController.swift; path = ../TimelineViewController.swift; sourceTree = "<group>"; };
 		D0C2ADA01AD45862008CDF38 /* FilterService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterService.swift; path = ../FilterService.swift; sourceTree = "<group>"; };
+		D0D433A11AD8777800EB0610 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = ../GalleryViewController.swift; sourceTree = "<group>"; };
+		D0D433A31AD87C8100EB0610 /* GalleryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewCell.swift; path = ../GalleryViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +126,6 @@
 		D08CA4DE1AD320590026302B = {
 			isa = PBXGroup;
 			children = (
-				D0A73F671AD6EDA200572A4F /* TimelineViewController.swift */,
 				D08CA4E91AD320590026302B /* ImageFiltersRM */,
 				D08CA4FF1AD3205A0026302B /* ImageFiltersRMTests */,
 				D08CA4E81AD320590026302B /* Products */,
@@ -194,6 +197,7 @@
 				D08CA4F51AD3205A0026302B /* LaunchScreen.xib */,
 				D08CA4F01AD3205A0026302B /* Main.storyboard */,
 				D00225471AD7632200B1DA76 /* ImageCell.swift */,
+				D0D433A31AD87C8100EB0610 /* GalleryViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -201,6 +205,8 @@
 		D08CA5121AD321370026302B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D0A73F671AD6EDA200572A4F /* TimelineViewController.swift */,
+				D0D433A11AD8777800EB0610 /* GalleryViewController.swift */,
 				D08CA50E1AD320E30026302B /* PhotoViewController.swift */,
 			);
 			name = Controller;
@@ -335,7 +341,9 @@
 				D08CA4ED1AD3205A0026302B /* AppDelegate.swift in Sources */,
 				D09AFD3D1AD5A91700F81896 /* ImageResizer.swift in Sources */,
 				D0A73F681AD6EDA200572A4F /* TimelineViewController.swift in Sources */,
+				D0D433A41AD87C8100EB0610 /* GalleryViewCell.swift in Sources */,
 				D00225481AD7632200B1DA76 /* ImageCell.swift in Sources */,
+				D0D433A21AD8777800EB0610 /* GalleryViewController.swift in Sources */,
 				D08CA50F1AD320E30026302B /* PhotoViewController.swift in Sources */,
 				D09AFD171AD5868300F81896 /* Constants.swift in Sources */,
 			);

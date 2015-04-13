@@ -9,12 +9,12 @@
 import UIKit
 import Parse
 
-class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource {
+class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, ImageSelectedDelegate {
   
   //MARK:
   //MARK: Properties
   
-
+  
   let myAlertController = UIAlertController (title: "Options", message: "Choose One", preferredStyle: UIAlertControllerStyle.ActionSheet)
   let theImageLength : CGFloat = 500.0
   let myImageConstraint : CGFloat = 50.0
@@ -39,8 +39,8 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   
   
   // imageview constants
-  var originalImageViewTopLeadingTrailingConstant : CGFloat = 0.0
-  var originalImageViewBottomConstant : CGFloat = 0.0
+  var originalImageViewTopLeadingTrailingConstant : CGFloat = 8.0
+  var originalImageViewBottomConstant : CGFloat = 16.0
   let myThumbnailSize = CGSize(width: 75, height: 75)
   
   //MARK:
@@ -106,7 +106,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
       
       if self != nil {
         self!.enterFilterMode ()
-      }
+      } // if self
     } //filters Action
     self.myAlertController.addAction (filtersAction)
     
@@ -115,16 +115,19 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     let saveAction = UIAlertAction (title: "Save photo to Cloud", style: UIAlertActionStyle.Default) { (action) -> Void in
       
       let thePhoto: Void = ParseService.ParseService(self.myImageView.image!, theSize: self.myImageUploadSize, completionHandler : {(errorDescription) -> Void in
-        
-      })
+      }) // ParseService completion handler
     } // save action
     self.myAlertController.addAction (saveAction)
     
     let cancelAction = UIAlertAction (title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-      
-    } // calcel action
-    
+    } // cancel action
     self.myAlertController.addAction (cancelAction)
+    
+    let galleryAction = UIAlertAction (title: "Show Gallery", style: UIAlertActionStyle.Default) { (action) -> Void in
+      self.performSegueWithIdentifier("ShowGallery", sender: self)
+    } // galleryAction
+    self.myAlertController.addAction(galleryAction)
+    
     
     self.currentImage = UIImage(named: "photo.jpg")
     
@@ -147,7 +150,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     UIView.animateWithDuration(self.myAnimationDuration, animations: { () -> Void in
       self.myImageView.layoutIfNeeded()
-    })
+    }) // animateWithDuration completion handler
     
   } // enterFilterMode
   
@@ -160,7 +163,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // remove the done button
     self.navigationItem.rightBarButtonItem = nil
     // allow the imageview to retirn to fill size.
-   
+    
     self.myImageViewTopConstraint.constant = self.originalImageViewTopLeadingTrailingConstant
     self.myImageViewBottomConstraint.constant = self.originalImageViewBottomConstant
     self.myImageViewTrailingConstraint.constant = self.originalImageViewTopLeadingTrailingConstant
@@ -169,9 +172,22 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     UIView.animateWithDuration (self.myAnimationDuration, animations: { () -> Void in
       self.myImageView.layoutIfNeeded ()
-    })
+    }) // animateWithDuration completion handler
     
   }// leaveFilterMode
+  
+  //MARK:
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "ShowGallery" {
+      let theGalleryVC = segue.destinationViewController as GalleryViewController
+      
+      // set the size for the main image view
+      theGalleryVC.myPrimaryImageViewSize = self.myImageView.frame.size
+      
+      // set the delegate for the GalleryVC to self
+      theGalleryVC.myDelegate = self
+    } // if segue.identifier
+  } // prepareForSegue
   
   // Photo button pressed function calling the UIAlertController.
   @IBAction func photoButtonPressed (sender: AnyObject) {
@@ -189,7 +205,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // define the sourceView based on the UIView
         popoverController.sourceView = button
         popoverController.sourceRect = button.bounds
-      }
+      } // if let button
     } // if let popoverController
     
     self.presentViewController (myAlertController, animated: true) { () -> Void in
@@ -204,18 +220,15 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   }
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    
     let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myImageCell", forIndexPath: indexPath) as ImageCell
-    
     let theFilter = self.myFilters[indexPath.row]
-    
     theCell.backgroundColor = UIColor.redColor()
-    
     theCell.myCellImageView.image = theFilter(self.myOriginalThumbnail, self.myContext)
     
     
     return theCell
   }
-  
   
   //MARK:
   //MARK: UIImagePickerControllerDelegate
@@ -230,6 +243,13 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   func imagePickerController (picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
     
   } // imagePickerController didFinishPickingImage
+  
+  
+  //MARK: ImageSelectedDelegate
+  
+  func controllerDidSelectImage(theImage: UIImage) {
+    self.currentImage = theImage
+  }
   
   override func didReceiveMemoryWarning () {
     super.didReceiveMemoryWarning ()
