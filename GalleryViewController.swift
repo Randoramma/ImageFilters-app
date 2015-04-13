@@ -60,9 +60,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
-    let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myGalleryViewCell", forIndexPath: indexPath) as GalleryViewCell
+    let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myGalleryViewCell", forIndexPath: indexPath) as! GalleryViewCell
     
-    let theAsset = self.myResults[indexPath.row] as PHAsset
+    let theAsset = self.myResults[indexPath.row] as! PHAsset
     
     self.myImageManager.requestImageForAsset(theAsset, targetSize: theCell.frame.size, contentMode: PHImageContentMode.AspectFill, options: nil) { (theImage, theInfo) -> Void in
       if theImage != nil {
@@ -75,7 +75,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   //MARL: UICollectionViewDelegate
   
   func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-    let theAsset = self.myResults[indexPath.row] as PHAsset
+    let theAsset = self.myResults[indexPath.row] as! PHAsset
     
     self.myImageManager.requestImageForAsset(theAsset, targetSize: self.myPrimaryImageViewSize, contentMode: PHImageContentMode.AspectFill, options: nil) { [weak self]  (theImage, theInfo) -> Void in
       if self != nil {
