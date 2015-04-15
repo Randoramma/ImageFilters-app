@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-// set the image protocol delegate.  Be sure to make it a class protocol so that the 
+// set the image protocol delegate.  Be sure to make it a class protocol so that the
 // connections are weak connections.
 protocol ImageSelectedDelegate : class {
   
@@ -28,16 +28,16 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   /*
   The delegate
   This is our delegate object.
-
-
-
+  
+  
+  
   */
   weak var myDelegate : ImageSelectedDelegate?
   
   @IBOutlet weak var myGalleryCollectionView: UICollectionView!
   
   var myFlowlayout : UICollectionViewFlowLayout!
-
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -106,7 +106,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
       
       self.myGalleryCollectionView.performBatchUpdates({ () -> Void in
         self.myFlowlayout.invalidateLayout()
-      }, completion: nil)
+        }, completion: nil)
       
       
     } // if state changed

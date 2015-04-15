@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Timeline View Controller-->
+        <!--Timeline-->
         <scene sceneID="ZoW-jK-3cv">
             <objects>
-                <viewController id="6N4-gv-J99" customClass="TimelineViewController" customModule="ImageFiltersRM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Timeline" id="6N4-gv-J99" customClass="TimelineViewController" customModule="ImageFiltersRM" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rwh-8m-7sl"/>
                         <viewControllerLayoutGuide type="bottom" id="agw-me-31Z"/>
@@ -21,14 +21,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myTableViewCell" rowHeight="100" id="h0f-82-zcJ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myTableViewCell" rowHeight="300" id="h0f-82-zcJ" customClass="TimelineTableViewCell" customModule="ImageFiltersRM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h0f-82-zcJ" id="436-RR-T3D">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="REV-1F-CgS">
-                                                    <rect key="frame" x="0.0" y="0.0" width="292" height="99"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="292" height="299"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -38,6 +38,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="REV-1F-CgS" secondAttribute="bottom" constant="-8" id="zdZ-9l-tM6"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="myTableViewImage" destination="REV-1F-CgS" id="arH-ut-vVf"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

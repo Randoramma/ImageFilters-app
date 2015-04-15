@@ -47,19 +47,18 @@ class ParseService {
     
     // we will want to put the "TheImageClass under class name when finished.
     var query = PFQuery(className: theImageClass)
-    //query.whereKey("playerName", equalTo:"Sean Plott")
-    query.findObjectsInBackgroundWithBlock { (query, error) -> Void in
-      if error == nil {
-        // the find succeeds.
-        println("Successfully retrieved \(query!.count) scores.")
-        // Hand back the array of PF objects to the VC.  
-        if let theObjects = query as? [PFObject] {
-            completion (theObjects)
-          // to see if this thing kind of works.
-            println(theObjects.count)
-        } // if let
-      } // if error
-    } // findObjectsInBackgroundWithBlock
+    
+    
+    
+    query.findObjectsInBackgroundWithBlock { (theObjects, error) -> Void in
+      NSLog("\(theObjects)")
+      
+      if (error == nil) {
+        if let theFiles = theObjects as? [PFObject] {
+          completion(theFiles)
+        }
+      }
+    }
   } // ParseRetrevial
 }
   

@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class TimelineViewController: UIViewController, UITableViewDataSource  {
+class TimelineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
   
   
   @IBOutlet weak var myTimeLineTableView: UITableView!
@@ -21,10 +21,18 @@ class TimelineViewController: UIViewController, UITableViewDataSource  {
     self.title = "Timeline"
     
     myTimeLineTableView.dataSource = self
+    myTimeLineTableView.delegate = self
     
+    
+    
+  } // viewDidLoad
+  
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
     /*
-    Pull the objects from the parser to the VC.  If our object class id is correct,
-    the completion handler will bring out the array of PF objects and we will populate
+    Pull the files from the parser to the VC.  If our object class id is correct,
+    the completion handler will bring out the array of PF file and we will populate
     them into our own array in the class so that we can lazy load them when the collection
     builds.
     */
@@ -32,77 +40,57 @@ class TimelineViewController: UIViewController, UITableViewDataSource  {
     ParseService.ParseRetrevial("ImagePost", completion: {(objectArray) -> Void in
       
       for object in objectArray {
-        let file = object.objectForKey("theImage") as! PFObject
+        
+        // add the PFFiles to our array.
         self.myObjects.append(object)
         
-        //let theImage = file.
-        // follow the steps from the parse service here or in the deque reusable cell
-        
-        
-        // dont forget to add an image to the cell on the storyboard.
-        
-        
       } // for loop
+      
+      // bring back to the main queue
       
       NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
         self.myTimeLineTableView.reloadData()
         println(self.myObjects.count)
-      })
+      }) // NSOperationQueue completion
       
-    }) // completion
+    }) // ParseRetrevial completion
     
-    // bring back to the main queue
-    
-    //        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-    //          completion
-    //        })
-  } // viewDidLoad
+  } // viewWillAppear
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return myObjects.count
+    
+    println (myObjects.count)
+    if myObjects.count > 0 {
+      
+      return myObjects.count
+      
+    } else {
+      return 0
+    }
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    let theCell = tableView.dequeueReusableCellWithIdentifier("myTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+    let theCell = tableView.dequeueReusableCellWithIdentifier("myTableViewCell", forIndexPath: indexPath) as! TimelineTableViewCell
     
+    // unwrap the object based on the name
+    let object = myObjects[indexPath.row]
+    // grab the key for the PFObject and
+    let file = object["image"] as! PFFile
     
-    
+    // grab the data on a background key
+    file.getDataInBackgroundWithBlock { (theData, error) -> Void in
+      
+      if error == nil {
+        
+        let theImage = UIImage(data: theData!)
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          theCell.myTableViewImage.image = theImage
+        })
+      }
+      
+    }
     return theCell
   }
-  
-  
-  //
-  //      // we want this cell to take us back to the main image.
-  //  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-  //
-  //    let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myTimelineViewCell", forIndexPath: indexPath)  as! GalleryViewCell
-  //
-  //    let theAsset = self.myObjects[indexPath.row]
-  //
-  //    // find the key we used
-  //
-  //
-  //    // pull out the parse object with the key
-  //    theCell.myGalleryCellImageView.image = theAsset.fetchInBackgroundWithBlock({ (theKey, theError) -> Void in
-  //     // <#code#>
-  //
-  //      return theCell
-  //    })
-  //
-  //
-  //
-  //    return theCell
-  //  } // cellForItemAtIndexPath
-  //
-  //  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-  //    return 1
-  //  }
-  
-  
-  
-  
-  
-  
-  
 }

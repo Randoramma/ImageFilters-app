@@ -39,6 +39,7 @@
 		D0C2ADA11AD45862008CDF38 /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2ADA01AD45862008CDF38 /* FilterService.swift */; };
 		D0D433A21AD8777800EB0610 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D433A11AD8777800EB0610 /* GalleryViewController.swift */; };
 		D0D433A41AD87C8100EB0610 /* GalleryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D433A31AD87C8100EB0610 /* GalleryViewCell.swift */; };
+		D0E45CC71ADEBE2100A97D1C /* TimelineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E45CC61ADEBE2100A97D1C /* TimelineTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		D0C2ADA01AD45862008CDF38 /* FilterService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterService.swift; path = ../FilterService.swift; sourceTree = "<group>"; };
 		D0D433A11AD8777800EB0610 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = ../GalleryViewController.swift; sourceTree = "<group>"; };
 		D0D433A31AD87C8100EB0610 /* GalleryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewCell.swift; path = ../GalleryViewCell.swift; sourceTree = "<group>"; };
+		D0E45CC61ADEBE2100A97D1C /* TimelineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimelineTableViewCell.swift; path = ../TimelineTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 				D08CA4F51AD3205A0026302B /* LaunchScreen.xib */,
 				D08CA4F01AD3205A0026302B /* Main.storyboard */,
 				D00225471AD7632200B1DA76 /* ImageCell.swift */,
+				D0E45CC61ADEBE2100A97D1C /* TimelineTableViewCell.swift */,
 				D0D433A31AD87C8100EB0610 /* GalleryViewCell.swift */,
 			);
 			name = View;
@@ -345,6 +348,7 @@
 				D09AFD3F1AD5AC0100F81896 /* ParseService.swift in Sources */,
 				D08CA4ED1AD3205A0026302B /* AppDelegate.swift in Sources */,
 				D09AFD3D1AD5A91700F81896 /* ImageResizer.swift in Sources */,
+				D0E45CC71ADEBE2100A97D1C /* TimelineTableViewCell.swift in Sources */,
 				D0A73F681AD6EDA200572A4F /* TimelineViewController.swift in Sources */,
 				D0D433A41AD87C8100EB0610 /* GalleryViewCell.swift in Sources */,
 				D0AC13A11ADCC1EF002BC6A7 /* ImageFilterBridgingHeader.m in Sources */,
