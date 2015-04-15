@@ -23,6 +23,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   var myImageManager : PHCachingImageManager!
   var myPrimaryImageViewSize : CGSize!
   var myResults : PHFetchResult!
+  let myCellSize = CGSize(width: 100.0, height: 100.0)
   
   /*
   The delegate
@@ -34,10 +35,14 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   weak var myDelegate : ImageSelectedDelegate?
   
   @IBOutlet weak var myGalleryCollectionView: UICollectionView!
+  
+  var myFlowlayout : UICollectionViewFlowLayout!
 
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.myFlowlayout = myGalleryCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
     
     
     self.myGalleryCollectionView.delegate = self
@@ -45,9 +50,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     
     self.myResults = PHAsset.fetchAssetsWithOptions(nil)
     self.myImageManager = PHCachingImageManager()
-//    
-//    let pinch = UIGestureRecognizer(target: self, action: "collectionViewPinched:")
-//    self.myGalleryCollectionView.addGestureRecognizer(pinch)
+    
+    let myPinch = UIPinchGestureRecognizer(target: self, action: "collectionViewPinched:")
+    self.myGalleryCollectionView.addGestureRecognizer(myPinch)
     
   }// viewdidload
   
@@ -88,8 +93,23 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     } // requestImageForAsset
   } // didDeselectItemAtIndexPath
   
-  func collectionViewPinched(pinch : UIPinchGestureRecognizer) {
-    println(pinch.scale)
+  func collectionViewPinched(thePinch : UIPinchGestureRecognizer) {
+    
+    
+    if thePinch.state == UIGestureRecognizerState.Changed {
+      println(thePinch.scale)
+      
+      let theCurrentSize = self.myFlowlayout.itemSize
+      let theNewSize = CGSize(width: myCellSize.width * thePinch.scale, height: myCellSize.height * thePinch.scale)
+      
+      self.myFlowlayout.itemSize = theNewSize
+      
+      self.myGalleryCollectionView.performBatchUpdates({ () -> Void in
+        self.myFlowlayout.invalidateLayout()
+      }, completion: nil)
+      
+      
+    } // if state changed
   } // collectionViewPinched
   
   

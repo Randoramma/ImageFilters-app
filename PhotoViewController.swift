@@ -179,7 +179,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   //MARK:
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "ShowGallery" {
-      let theGalleryVC = segue.destinationViewController as GalleryViewController
+      let theGalleryVC = segue.destinationViewController as! GalleryViewController
       
       // set the size for the main image view
       theGalleryVC.myPrimaryImageViewSize = self.myImageView.frame.size
@@ -221,7 +221,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
-    let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myImageCell", forIndexPath: indexPath) as ImageCell
+    let theCell = collectionView.dequeueReusableCellWithReuseIdentifier("myImageCell", forIndexPath: indexPath) as! ImageCell
     let theFilter = self.myFilters[indexPath.row]
     theCell.backgroundColor = UIColor.redColor()
     theCell.myCellImageView.image = theFilter(self.myOriginalThumbnail, self.myContext)
@@ -240,7 +240,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     picker.dismissViewControllerAnimated(true, completion: nil)
   } // imagePickerController didFinishPickingMediaWithInfo
   
-  func imagePickerController (picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+  func imagePickerController (picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
     
   } // imagePickerController didFinishPickingImage
   
